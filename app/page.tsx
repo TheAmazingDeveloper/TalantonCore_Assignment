@@ -4,6 +4,10 @@ import { getBaseUrl } from "@/lib/getBaseUrl";
 export const revalidate = 3600;
 
 export default async function Home() {
+  if (process.env.VERCEL_ENV) {
+    // Skip fetching during Vercel build (API not yet deployed)
+    return [];
+  }
   const baseUrl = getBaseUrl();
   const res = await fetch(`${baseUrl}/api/products`, {
     next: { revalidate: 3600 },
