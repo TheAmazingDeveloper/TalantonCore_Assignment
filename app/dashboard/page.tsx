@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+  const res = await fetch('/api/products', {
     cache: "no-store",
   });
   const products = await res.json();

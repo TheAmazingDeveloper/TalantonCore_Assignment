@@ -1,7 +1,7 @@
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
+  const res = await fetch('/api/products');
   const products = await res.json();
   return products.map((p: any) => ({ slug: p.slug }));
 }
@@ -13,7 +13,7 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${slug}`,
+    `/api/products/${slug}`,
     { next: { revalidate: 60 } }
   );
   const product = await res.json();

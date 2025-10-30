@@ -3,7 +3,7 @@ import ProductCard from "@/components/productCard";
 export const revalidate = 3600;
 
 export default async function Home() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+  const res = await fetch('/api/products', {
     next: { revalidate: 3600 },
   });
   const products = await res.json();
