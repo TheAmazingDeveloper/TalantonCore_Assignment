@@ -1,7 +1,10 @@
+import { getBaseUrl } from "@/lib/getBaseUrl";
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const res = await fetch('/api/products');
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/products`);
   const products = await res.json();
   return products.map((p: any) => ({ slug: p.slug }));
 }
@@ -12,10 +15,10 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const res = await fetch(
-    `/api/products/${slug}`,
-    { next: { revalidate: 60 } }
-  );
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/products/${slug}`, {
+    next: { revalidate: 60 },
+  });
   const product = await res.json();
 
   if (!product || product.error) {

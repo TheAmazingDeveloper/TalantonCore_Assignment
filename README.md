@@ -34,7 +34,6 @@ Create a `.env` file in the project root:
 ```env
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>?retryWrites=true&w=majority
 NEXT_PUBLIC_ADMIN_KEY=super-secret-key
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
 ---

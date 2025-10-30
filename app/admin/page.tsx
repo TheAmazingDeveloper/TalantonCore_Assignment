@@ -1,4 +1,5 @@
 "use client";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 import { useState, useEffect } from "react";
 
 export default function Admin() {
@@ -18,7 +19,8 @@ export default function Admin() {
   }, []);
 
   const fetchProducts = async () => {
-    const res = await fetch("/api/products");
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/products`);
     const data = await res.json();
     setProducts(data);
   };
@@ -74,7 +76,8 @@ export default function Admin() {
 
   const deleteProduct = async (id: string) => {
     if (!confirm("Delete this product?")) return;
-    await fetch(`/api/products/${id}`, {
+    const baseUrl = getBaseUrl();
+    await fetch(`${baseUrl}/api/products/${id}`, {
       method: "DELETE",
       headers: { "x-admin-key": process.env.NEXT_PUBLIC_ADMIN_KEY || "" },
     });

@@ -1,9 +1,11 @@
 import ProductCard from "@/components/productCard";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 export const revalidate = 3600;
 
 export default async function Home() {
-  const res = await fetch('/api/products', {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/products`, {
     next: { revalidate: 3600 },
   });
   const products = await res.json();

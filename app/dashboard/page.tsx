@@ -1,7 +1,10 @@
+import { getBaseUrl } from "@/lib/getBaseUrl";
+
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const res = await fetch('/api/products', {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/products`, {
     cache: "no-store",
   });
   const products = await res.json();

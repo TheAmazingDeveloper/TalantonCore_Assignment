@@ -1,7 +1,9 @@
 import WishlistButton from "@/components/wishlistButton";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 async function getRecommended() {
-  const res = await fetch("/api/products", {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/products`, {
     cache: "force-cache",
   });
   const all = await res.json();
