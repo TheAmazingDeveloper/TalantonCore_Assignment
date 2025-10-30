@@ -4,6 +4,9 @@ export const revalidate = 60;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
+  const baseUrl = process.env.VERCEL_ENV ? null : getBaseUrl();
+  if (!baseUrl) return [];
+
   try {
     const baseUrl = getBaseUrl();
     const res = await fetch(`${baseUrl}/api/products`);
