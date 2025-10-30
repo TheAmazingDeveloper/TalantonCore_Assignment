@@ -1,14 +1,17 @@
 export function getBaseUrl() {
-  if (typeof window !== "undefined") {
-    // Running in browser
-    return "";
-  }
+  // Client-side (browser)
+  if (typeof window !== "undefined") return "";
 
-  // Running on the server (Vercel or locally)
+  // ✅ Production (Vercel)
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`;
   }
 
-  // Local dev
+  // ✅ When deployed under a custom domain
+  if (process.env.NEXT_PUBLIC_BASE_URL) {
+    return process.env.NEXT_PUBLIC_BASE_URL;
+  }
+
+  // ✅ Local development
   return "http://localhost:3000";
 }
