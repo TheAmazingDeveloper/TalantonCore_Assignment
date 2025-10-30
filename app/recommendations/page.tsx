@@ -2,12 +2,22 @@ import WishlistButton from "@/components/wishlistButton";
 import { getBaseUrl } from "@/lib/getBaseUrl";
 
 async function getRecommended() {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/products`, {
-    cache: "force-cache",
-  });
-  const all = await res.json();
-  return all.slice(0, 3);
+  try {
+    if (process.env.VERCEL_ENV) {
+      // Skip fetching on build server
+      return [];
+    }
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/products`, {
+      cache: "force-cache",
+    });
+    if (!res.ok) throw new Error("Failed to fetch products");
+    const all = await res.json();
+    return all.slice(0, 3);
+  } catch (err) {
+    console.error("⚠️ Failed to fetch recommendations:", err);
+    return [];
+  }
 }
 
 export default async function Recommendations() {
