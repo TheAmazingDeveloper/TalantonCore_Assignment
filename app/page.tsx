@@ -9,6 +9,7 @@ export default async function Home() {
     return [];
   }
   const baseUrl = getBaseUrl();
+  console.log("🧭 Fetching from:", `${baseUrl}/api/products`);
   const res = await fetch(`${baseUrl}/api/products`, {
     next: { revalidate: 3600 },
   });
