@@ -32,7 +32,7 @@ export default async function Recommendations() {
                 ${p.price}
               </p>
               <div className="mt-4">
-                <WishlistButton productId={p.id} />
+                <WishlistButton productId={p._id} />
               </div>
             </div>
           ))}

@@ -39,7 +39,7 @@ export default async function Dashboard() {
           <div className="space-y-2">
             {products.map((p: any) => (
               <div
-                key={p.id}
+                key={p._id}
                 className="flex justify-between items-center border border-gray-100 rounded-md p-3 hover:bg-gray-50"
               >
                 <span className="font-medium text-gray-800">{p.name}</span>
