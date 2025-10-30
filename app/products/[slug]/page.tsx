@@ -1,12 +1,21 @@
 import { getBaseUrl } from "@/lib/getBaseUrl";
 
 export const revalidate = 60;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/products`);
-  const products = await res.json();
-  return products.map((p: any) => ({ slug: p.slug }));
+  try {
+    const baseUrl = getBaseUrl();
+    const res = await fetch(`${baseUrl}/api/products`);
+
+    if (!res.ok) throw new Error(`Failed with status ${res.status}`);
+    const products = await res.json();
+
+    return products.map((p: any) => ({ slug: p.slug }));
+  } catch (err) {
+    console.error("⚠️ Failed to fetch products during build:", err);
+    return [];
+  }
 }
 
 export default async function ProductPage({
